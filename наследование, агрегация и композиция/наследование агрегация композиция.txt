@@ -1,0 +1,157 @@
+//агрегация и композиция
+
+
+/*Ниже представлен пример агрегации и композиции*/
+class Worker//работник
+{
+    string name;
+    class Work//пример композиции
+    {
+        string name_work;
+    public:
+        void ToWork()
+        {
+            cout << "работаю"<<endl;
+        }
+    };
+    Work work;
+public:
+    Worker(string name)
+    {
+        this->name = name;
+    }
+    void startWork()
+    {
+        cout << "Начало" << endl;
+        work.ToWork();
+    }
+    string getName()
+    {
+        return name;
+    }
+};
+class Building
+{
+    Worker* worker;
+
+};
+class Office//офис
+{
+    Worker* worker;//1 работник  используется агрегация
+public:
+    Office(Worker *worker)
+    {
+        this->worker = worker;
+    }
+    Worker getWorker()
+    {
+        cout << "worker:" << worker->getName()<<endl;
+        return *worker;
+    }
+};
+
+/*Наследование*/
+class Human
+{
+    string name;
+public:
+    string getName()
+    {
+        cout << name<<endl;
+        return name;
+    }
+    void setName(string name)
+    {
+        //cout << name << endl;
+        this->name=name;
+    }
+};
+/*
+Создайте класс Student, который будет содержать информа-
+цию о студенте.
+С помощью механизма наследования, реализуйте класс
+Aspirant (аспирант – студент, который готовится к защите
+кандидатской работы) производный от Student.
+*/
+class Student : public Human
+{
+    int age;
+    string group;
+    int number_course;
+  
+public:
+    Student()
+    {
+        this->group = "";
+        this->number_course = 0;
+    }
+    Student(string group, int number_course)
+    {
+        this->group = group;
+        this->number_course = number_course;
+    }
+    void setGroup(string group)
+    {
+        this->group = group;
+      //  this->set_Number_Course(1);
+    }
+    void set_Number_Course(int number_course)
+    {
+        this->number_course = number_course;
+    }
+    string getGroup()
+    {
+        cout << group << endl;
+        return group;
+    }
+
+};
+class Aspirant:private Student
+{
+    string name_work;
+ 
+public:
+  /*  Aspirant()
+    {
+        cout <<"Аспирант:"<<this->getName() <<endl;
+    }*/
+    void setNamework(string NameWork)
+    {
+        this->name_work = NameWork;
+    }
+    void getNameWork()
+    {
+        cout << "Аспирант:" << this->getName() <<"\nИмя работы"<< name_work<<endl;
+    }
+};
+class Teacher
+{
+    string name;
+    string subject;
+};
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    Student student("ИВТ-160", 1);
+    student.setName("ВАня");
+    Aspirant aspirant;
+    aspirant.setGroup("bbb");
+    //aspirant.setName("Володя");//и для человека, для студента
+    aspirant.setNamework("нейросеть");//уникально для аспиранта
+    aspirant.getNameWork();
+    student.set_Number_Course(1);
+   // aspirant.set_Number_Course;
+    //student.getName();
+   
+    /**
+    Worker worker1("Петр");
+    worker1.startWork();
+    Worker* worker = new Worker("Иван");
+    Office office(worker);
+    office.getWorker();
+    delete worker;*/
+
+  
+  }
+   
+   
