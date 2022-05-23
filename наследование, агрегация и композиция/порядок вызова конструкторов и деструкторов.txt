@@ -1,0 +1,64 @@
+class A
+{
+public:// доступно всем и всгеда
+    string publicA;
+    A()
+    {
+        cout << "Создался объект типа А" <<this<< endl;
+    }
+    ~A()
+    {
+        cout << "Удалился А" << this << endl;
+    }
+private://доступно ТОЛЬКО членам данного класса
+    string privateA;
+protected://доступен Только внутри класса, а также только внутри класса-предка
+    string protectedA;
+ 
+};
+
+class B : public A
+{
+public:
+
+    string publicB;
+    B()
+    {
+        cout << "Создался объект типа В" <<this<< endl;
+    }
+    ~B()
+    {
+        cout << "Удалился B" << this << endl;
+    }
+private:
+    string privateB;
+protected:
+    string protectedB;
+};
+class C: public B
+{
+public:
+    string publicC;
+    C()
+    {
+        cout << "Создался объект типа С" <<this<<endl;
+        
+    }
+    ~C()
+    {
+        cout << "Удалился C" << this << endl;
+    }
+private:
+    string privateC;
+protected:
+    string protectedC;
+};
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    //A a;
+    //B b;
+    C c;
+  
+    return 0;
+}
