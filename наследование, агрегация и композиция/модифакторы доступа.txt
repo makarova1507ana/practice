@@ -1,0 +1,87 @@
+class A
+{
+public:// доступно всем и всгеда
+    string publicA;
+private://доступно ТОЛЬКО членам данного класса
+    string privateA;
+protected://доступен Только внутри класса, а также только внутри класса-предка
+    string protectedA;
+};
+/*
+class B: public A
+{
+public:
+    
+    string publicB;
+    B()
+    {
+//появляется досутп к public полям
+this->publicA="";//могу обратиться из класса и из вне
+ this->protectedA="ggg";// могу обратиться только из класса к protected
+    }
+private:
+    string privateB;
+protected:
+    string protectedB;
+};
+*/
+/*class B : private A
+{
+public:
+    
+    string publicB;
+    B()
+    {
+//появляется досутп к public & protected полям
+        //public & protected становятся для класса B private полями
+        this->publicA ="" ;// могу обратиться только из класса к public класса А 
+        this->protectedA="ggg";// могу обратиться только из класса к protected класса А
+    }
+private:
+    string privateB;
+protected:
+    string protectedB;
+};*/
+class B : protected A
+{
+public:
+
+    string publicB;
+    B()
+    {
+        //появляется досутп к public & protected полям
+                //public & protected становятся для класса B private полями
+        this->publicA = "";// могу обратиться только из класса к public класса А 
+        this->protectedA = "ggg";// могу обратиться только из класса к protected класса А
+    }
+private:
+    string privateB;
+protected:
+    string protectedB;
+};
+class C: public B
+{
+public:
+    string publicC;
+    C()
+    {
+        //появляется доступ public & protected полям класса 
+        // но из вне к public обратиться не получиться
+        this->publicA;
+        
+    }
+private:
+    string privateC;
+protected:
+    string protectedC;
+};
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    B b;
+    C c;
+  //наследование public  b.publicA = "gg";// объект типа B может обратиться public полям, но не можем обратиться к private protected
+   //наследование private // из вне не получится обратиться к полям класса А
+   //наследование protected // из вне не получится обратиться к полям класса А
+  
+}
