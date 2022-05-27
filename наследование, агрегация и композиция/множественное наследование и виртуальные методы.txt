@@ -1,0 +1,112 @@
+class Car//класс родитель 1
+{
+public:
+    void use()
+    {
+        cout << "поехали!" << endl;
+    }
+};
+class Airplane //класс родитель 2
+{
+public:
+    void use()
+    {
+        cout << "полетели!" << endl;
+    }
+};
+class FlyingCar :public Car, public Airplane//потомок для 1 и 2 родителя
+{public:
+    void use()
+    {
+        Car::use();// обрщаемся к методу car
+        Airplane::use(); // обрщаемся к методу airplane
+        cout << "ghbptvkztvcz" << endl;
+    }
+
+};
+
+// virtual позволяет в классе наследнике переобределить методы-наслденика
+// override
+class  Gun
+{
+public:
+   virtual void shoot()
+    {
+        cout << "Стреляю!" << endl;
+    }
+};
+class autoGun : public  Gun
+{
+public:
+    void shoot() override//переобределяем
+    {
+        cout << "Стреляю! стреляю! стреляю!" << endl;
+    }
+};
+class bazuka : public autoGun
+{
+public:
+    void shoot()//также переопределяем, ключевое слово писать необязательно
+    {
+        cout << "BOOOOO" << endl;
+    }
+};
+class Player
+{
+public:
+    void shoot(Gun * gun)//передаем ссылку на объект
+    {
+        gun->shoot();
+    }
+    /*если не мы не будем пользователься указателем на потомка класса,
+    *то каждого потомка придется реализовать отдельный,
+    * перегруженный метод shoot player
+    * virtual позволяет использовать тот метод shoot
+    * который определен в данном потомке
+    */
+
+};
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+
+    autoGun autogun;
+    Gun gun1;
+    bazuka b;
+    Gun* gun = &autogun;//указатель РОдиетля может содержать ссылку на своего потомка
+   Player player;
+   
+    //agun.Gun::shoot();
+  //  agun.shoot();
+    player.shoot(&autogun);
+    player.shoot(&gun1);
+    player.shoot(&b);
+
+    
+
+
+
+    /*
+    Car car;
+    Airplane airplane;
+    FlyingCar fcar;
+    car.use();//машина использует свой метод
+    cout << endl;
+    airplane.use();//самолет использует свой метод
+    cout << endl;
+    //fcar.use();//лет. машина использует свой метод
+    //fcar.Car::use();//в стиле с++
+    //((Car)fcar).use();//в стиле си
+  //  ((Airplane)fcar).use();//в стиле си
+    fcar.FlyingCar::use();
+    */
+    /*
+    car.drive();
+    cout << endl;
+    airplane.fly();
+    cout << endl;
+    fcar.drive();
+    fcar.fly();*/
+  
+    return 0;
+}
