@@ -1,0 +1,158 @@
+class A
+{
+public:// доступно всем и всгеда
+    string publicA;
+     A()
+    {
+        cout << "Создался объект типа А  " <<this<< endl;
+    }
+   virtual ~A()
+    {
+        cout << "Удалился А   " << this << endl;
+    }
+private://доступно ТОЛЬКО членам данного класса
+    string privateA;
+protected://доступен Только внутри класса, а также только внутри класса-предка
+    string protectedA;
+ 
+};
+
+class B : public A
+{
+public:
+
+    string publicB;
+    B()
+    {
+        cout << "Создался объект типа В  " <<this<< endl;
+    }
+    ~B() override//виртуальный диструктор используем при работате с динамической памятью выделенной родителем
+    {
+        cout << "Удалился B  " << this << endl;
+    }
+private:
+    string privateB;
+protected:
+    string protectedB;
+};
+class C: public B
+{
+public:
+    string publicC;
+    C()
+    {
+        cout << "Создался объект типа С" <<this<<endl;
+        
+    }
+    ~C()
+    {
+        cout << "Удалился C" << this << endl;
+    }
+private:
+    string privateC;
+protected:
+    string protectedC;
+};
+
+
+
+// virtual позволяет в классе наследнике переобределить методы-наслденика
+// override
+class Weapon//абстрактный класс не может пораждать объекты собственно типа, но может хранить указатели на своих потомков
+{
+public:
+    virtual void shoot()=0;//чисто виртуальный метод, в котором нет никакой реализии
+    void print()
+    {
+        cout << "Вот оружие" << endl;
+    }
+    virtual ~Weapon() {//виртуальный деструктор
+    
+    }
+   
+};
+class knife : public Weapon
+{
+public:
+    void shoot()
+    {
+
+    }
+    ~knife()
+    {
+        cout << "нож исчез" << endl;
+    }
+};
+class  Gun: public Weapon
+{
+public:
+    void shoot() 
+       
+    {
+       Weapon::print();
+        cout << "Стреляю!" << endl;
+    }
+};
+class autoGun : public  Gun
+{
+public:
+    void shoot() override//переобределяем
+    {
+        cout << "Стреляю! стреляю! стреляю!" << endl;
+    }
+};
+class bazuka : public autoGun
+{
+public:
+    void shoot()//также переопределяем, ключевое слово писать необязательно
+    {
+        cout << "BOOOOO" << endl;
+    }
+};
+class Player
+{
+public:
+    void shoot(Weapon * weapon)//передаем ссылку на объект
+    {
+        weapon->shoot();
+    }
+    /*если  мы не будем пользователься указателем на потомка класса,
+    *то каждого потомка придется реализовать отдельный,
+    * перегруженный метод shoot player
+    * virtual позволяет использовать тот метод shoot
+    * который определен в данном потомке
+    */
+
+};
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    Weapon* weapon = new knife;
+    delete weapon;
+    //A *a1= new B;
+    //delete a1;
+  
+    /*
+    Gun gun1;
+    autoGun autogun;
+    Weapon* w = &gun1;
+    Weapon* w1 = &autogun;
+   
+    bazuka b;
+   // Gun* gun = &autogun;//указатель РОдиетля может содержать ссылку на своего потомка
+   Player player;
+
+    //agun.Gun::shoot();
+  //  agun.shoot();
+    player.shoot(&autogun);
+    player.shoot(&gun1);
+    player.shoot(&b);
+    */
+    
+
+  
+    return 0;
+}
