@@ -1,0 +1,82 @@
+//исключения
+/* типы ошибок
+* 1. Ошибки на этапе компиляции (не можем получить exe или не можем собрать решение)
+* 2. Ошибки во временя выполениния программы(exe получим, но программа вылетает)(запускать программу через отладчик)
+* 3. Логические ошибки(exe получим и программа не вылетит)(решение через откладчик)
+*/
+int del(int a, int b)
+{
+    int result = 0;
+    if (b==0)
+    {
+        //throw exception("b==0");
+        throw "b==0";
+    }
+    if (b < 0)
+    {
+        throw 1;
+    }
+    else
+    {
+        result = a / b;
+    }
+    return result;
+}
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+
+
+
+    int a = 10;
+    int* pArr;
+    int b = 0;
+    int c = 6;
+    while (b <= 0)
+    {
+        try
+        {
+            cin >> b;
+            del(a, b);
+        }
+        catch (const char* ex)
+        {
+            cout << "был передан " << ex << endl;
+        }
+        catch (...)
+        {
+            cout << "что-то не так" << endl;
+        }
+    }
+  /*  catch ( exception &ex)
+    {
+        cout << "был передан " << ex.what() << endl;
+    }*/
+    // pArr = 1; Пытаемся присвоить в указатель число и возникает 1 тип ошибок
+   // pArr=&a нет ";" тоже 1 тип ошибок и т.п.
+   //программа собралась, но в момент выполнения вылетела cout 2 тип << a / b << endl;
+   //планировалось показать разницу
+  // cout << a + c << endl;//а мы складываем
+   
+    
+    string path = ".txt";
+    //try-пытаться catch-поймать throw-бросать
+    ifstream file;
+    /*
+    file.exceptions(ifstream::badbit | ifstream::failbit);//эмулироваем работу исключений
+    try//пытаем выполнить код ниже
+    {
+        cout << "try open" << endl;
+        file.open(path);
+        cout << "open" << endl;//если исключение вызвано, все, что ниже не будет выполнено
+    }
+    catch (const ifstream::failure &ex)//ловим исключение, если оно есть
+    {
+        cout << ex.what()<<endl;
+        cout << ex.code() << endl;;
+        cout << "errorOPen!" << endl;
+    }*/
+    file.close();
+   
+    return 0;
+}
