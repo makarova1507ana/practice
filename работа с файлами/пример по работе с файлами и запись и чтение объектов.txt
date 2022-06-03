@@ -1,0 +1,150 @@
+// ConsoleApplication22.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <io.h>//функции для поиска файлов
+#include <stdio.h>//функции переименовать и удалить файл
+
+using namespace std;
+class A
+{
+public:
+    int n;
+    A(int n)
+    {
+        this->n = n;
+    }
+    A()
+    {
+        n = 0;
+    }
+    void print()
+    {
+        cout <<"Это объект "<<this->n << endl;
+    }
+};
+void RenameFile(string *path)
+{
+    string oldName, newName;
+    cout << "Введите имя файла или выберите 1, чтобы использовать уже существующий файл" <<endl;
+    cin >> oldName;
+    if (oldName == "1")
+    {
+        oldName = *path+"\\"+"s.txt";
+    }
+    else
+    {
+        oldName = *path + oldName;
+    }
+    cout << "Введите новое имя файла" << endl;
+    cin >> newName;
+    newName = *path + newName;
+    if(rename((char*)&oldName,(char*)&newName)!=0)
+    {
+        cout << "Ошибка при попытке переименовать файл" << endl;
+    }
+    else
+    {
+        cout << "Файл успешно переименован" << endl;
+    }
+}
+void RemoveFile(string* filename)
+{
+    if (remove((char*)&filename) )
+    {
+        cout << "файл успешно удален" << endl;
+    }
+    else
+    {
+        cout<<"не найден файл или файл уже удален"<<endl;
+    }
+}
+void FindFileINDir()
+{
+    string nameFile;
+    cout << "Введите маску файла" << endl;
+    cin >> nameFile;
+    string path;
+    cout << "Введите путь " << endl;
+    cin >> path;
+    string result = path + nameFile;
+    /*поиск необходимых файлов*/
+}
+void InFile(string* filename)
+{
+
+}
+void OutFile(string* filename)
+{
+
+}
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    string path = "C:\\Users\\mvideo\\source\\repos\\ConsoleApplication22\\ConsoleApplication22";
+   string name= "s.txt";
+   string FileName = path + "\\"+name;
+    fstream file;
+    file.open(path);
+    string s = "a";
+    char ch;
+    A a(1);
+    bool check = true;
+    while (check)
+    {
+        cout << "Выберите \n1-Переменовать \n2- Удалить \n 3 - показать папку \n4 - записать данные в файл \n5- прочитать данные из файла\n 6- Выход из программы" << endl;
+        cin >> ch;
+        switch (ch)
+        {
+        case '1':
+            RenameFile(&path);
+            break;
+        case '2':
+            RemoveFile(&path);
+            break;
+        case '3':
+            FindFileINDir();
+            break;
+        case '4':
+            InFile(&path);
+            break;
+        case '5':
+            OutFile(&path);
+            break;
+        case '6':
+            check = false;
+            break;
+        default:
+            break;
+
+        }
+    }
+    
+    /*
+    if (!file.is_open())
+    {
+        cout << "(" << endl;
+    }
+    else
+    {
+        cout << "открыли" << endl;
+        
+      //  for (int i = 0; i < 5; i++)
+        //{
+         //   file.write((char*)&a, sizeof(A));//
+       // }
+        file.write((char*)&a, sizeof(A));// запись в файл
+        file.seekp(0);//перемещаем указатель на начало файла
+        A temp;//временный объект для записи при чтении
+       // cout << sizeof(A)<<endl;
+       while (file.read((char*)&temp, sizeof(A)))
+        {
+           temp.print();
+        }
+       
+    }*/
+    file.close();
+}
+
