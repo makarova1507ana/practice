@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+//пространства имен
+
+	class Snake
+	{
+
+	};
+
+namespace snk 
+{
+	class Snake
+	{
+
+	};
+	void print()
+	{
+
+	}
+}
+
+
+int main()
+{
+	Snake snake;
+	snk::print();
+	
+}
