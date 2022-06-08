@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+//умные указатели или smart pointers
+template<typename T>
+class SmartPointer
+{
+	T* pointer;
+public:
+	SmartPointer(T *pointer)
+	{
+		this->pointer = pointer;
+		cout<<"создался указатель"<<endl;
+	}
+	~SmartPointer()
+	{
+		delete pointer;
+		cout << "удалился указатель" << endl;
+	}
+};
+void f(SmartPointer <int>*p)//работаем с памятью
+{
+	cout<<"функция"<< endl;
+}
+
+int main()
+{
+	
+	setlocale (LC_ALL,"ru");
+	//SmartPointer<int> p = new int(4);//выделяем память 
+	//f(&p);// перестали с ней работать, но она не очистилась
+	//при выходе из программы очищается память 
+	
+	
+	//auto_ptr устаревший указатель 
+	//auto_ptr<int> ap(new int(5));// выделили место
+	//auto_ptr<int> ap2(ap);//аp забыл то, куда он ссылался, потому переместили адрес в аp2
+/*	auto_ptr<int> up(new int(5));
+	cout << up.get() << "   " << *up.get() << endl;
+	auto_ptr<int> up2(up);
+
+	cout << up2.get() << "   " << *up2.get() << endl;
+	cout << up.get() << "   " << endl;*/
+
+
+	//unique_ptr уникальный указатель
+	int* p = new int(5);
+	unique_ptr<int> up(new int(5));
+	cout<<up<<"   "<<*up<<endl;
+	unique_ptr<int> up2(p);
+	cout << up2 << "   " << endl;
+	//up2 = move(up);
+	//cout << up2 << "   " << *up2 << endl;
+	cout << up << "   "  << endl;
+	//release()
+	//reset()
+	
+	//up2.reset();// очищает память у обычного и уникального указателя
+
+	//up2.release();// очищает память у уникального указателя
+//	delete p;
+	 
+// shared_ptr
+
+	/*shared_ptr<int> p1(new int(5));
+	shared_ptr<int> p2(p1);
+	shared_ptr<int> p3(p1);
+	shared_ptr<int> p4(p1);*/
+	int size;
+	cin >> size;
+	shared_ptr<int[]> ptr(new int[size] );
+	for (int i = 0; i < size; i++)
+	{
+		ptr[i] = i;
+		cout << ptr[i]<<endl;
+	}
+
+	return 0;
+}
