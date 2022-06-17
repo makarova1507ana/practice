@@ -1,0 +1,109 @@
+#include <iostream>
+#include <vector>//
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    vector<int> Vector = { 11,43,32,0 };
+    //int* p = &Vector[0];
+   // vector<int>::iterator it;//своего рода умный указатель, которые позволит совершать различные действия с коллекциями
+    //it = Vector.begin();//указатель на первый эелемент
+
+                        /*for (int i = 0; i < Vector.size(); i++)
+    {
+        cout << Vector[i] << endl;
+    }*/
+    for (vector<int>::iterator it = Vector.begin(); it != Vector.end(); it++)
+    {
+        cout << *it << endl;
+    }
+   /* for (int* i = &Vector[0]; i <= &Vector[Vector.size()-1]; i++)
+    {
+        cout << *i << endl;
+    }*///такой же как и с итератором.
+    for (vector<int>::reverse_iterator it = Vector.rbegin(); it != Vector.rend(); it++)
+    {
+        cout << *it << endl;
+    }
+    vector<int>::iterator it = Vector.begin();
+    cout << "*  " << *it  << endl;
+    advance(it, 2);//перемещает итератор на необходимое кол-во позиций
+    cout << "*  " << *it << endl;
+    cout << "Vector:" << endl;
+    for (vector<int>::iterator i = Vector.begin(); i != Vector.end(); i++)
+    {
+        cout << *i << endl;
+    }
+
+  
+    cout << "insert" << endl;
+    Vector.insert(it,3, 0);//вставка в любое место первый параметр- откуда; второй -сколько; трейтий- что (какое число)  
+    cout << "Vector new:" << endl;
+    for (vector<int>::iterator i = Vector.begin(); i != Vector.end(); i++)
+    {
+        cout << *i << endl;
+    }
+
+    cout << "Vector without erase:" << endl;
+    for (vector<int>::iterator i = Vector.begin(); i != Vector.end(); i++)
+    {
+        cout << *i << endl;
+    }
+
+
+    cout << "erase" << endl;
+    it = Vector.begin();
+    Vector.erase(it+2,it+5);//вырезка из любего место первый параметр- откуда; второй -до какого элемента; 
+    cout << "Vector new:" << endl;
+    for (vector<int>::iterator i = Vector.begin(); i != Vector.end(); i++)
+    {
+        cout << *i << endl;
+    }
+
+    Vector.insert(it,0);
+    cout << "удаление элемнетов в цикле" << endl;
+    for (vector<int>::iterator i = Vector.begin(); i != Vector.end();)
+    {
+        cout << *i << endl;
+        
+        if (*i == 0)
+        {
+            i=Vector.erase(i);
+            continue;
+        }
+        i++;
+    }
+
+
+
+        vector<vector<int>> vec;
+
+        for (int i = 0; i < 3; i++)
+
+        {
+            vector <int> temp;
+            for (int j = 0; j < 5; j++)
+            {
+                temp.push_back(rand() % 10);
+               
+
+            }
+            vec.push_back(temp);
+        }
+        cout << endl;
+
+        for (int vecline = 0; vecline < 3; vecline++)
+
+        {
+            for (int vecelem = 0; vecelem < 5; vecelem++)
+            {
+                cout << vec[vecline][vecelem] << " ";
+
+            }
+            cout << endl;
+        }
+
+     
+    return 0;
+}
